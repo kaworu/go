@@ -1,3 +1,7 @@
+# The Go Programming Language, Improved Edition™
+
+Just kidding, I'm simply [adding an `until` statement for fun][until].
+
 # The Go Programming Language
 
 Go is an open source programming language that makes it easy to build simple,
@@ -40,3 +44,4 @@ places to ask questions about the Go language.
 
 [rf]: https://reneefrench.blogspot.com/
 [cc3-by]: https://creativecommons.org/licenses/by/3.0/
+[until]: https://eli.thegreenplace.net/2019/go-compiler-internals-adding-a-new-statement-to-go-part-1/
