@@ -2,6 +2,12 @@
 
 Just kidding, I'm simply [adding an `until` statement for fun][until].
 
+### Building
+
+```console
+$ (cd src && ./make.bash) && ./bin/go version
+```
+
 # The Go Programming Language
 
 Go is an open source programming language that makes it easy to build simple,
