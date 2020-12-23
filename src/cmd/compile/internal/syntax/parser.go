@@ -306,6 +306,7 @@ const stopset uint64 = 1<<_Break |
 	1<<_Select |
 	1<<_Switch |
 	1<<_Type |
+	1<<_Until |
 	1<<_Var
 
 // Advance consumes tokens until it finds a token of the stopset or followlist.
@@ -1834,12 +1835,27 @@ func (p *parser) forStmt() Stmt {
 	return s
 }
 
+func (p *parser) untilStmt() Stmt {
+	if trace {
+		defer p.trace("untilStmt")()
+	}
+
+	s := new(UntilStmt)
+	s.pos = p.pos()
+
+	s.Init, s.Cond, _ = p.header(_Until)
+	s.Body = p.blockStmt("until clause")
+
+	return s
+}
+
 func (p *parser) header(keyword token) (init SimpleStmt, cond Expr, post SimpleStmt) {
 	p.want(keyword)
 
 	if p.tok == _Lbrace {
-		if keyword == _If {
-			p.syntaxError("missing condition in if statement")
+		switch keyword {
+		case _If, _Until:
+			p.syntaxError(fmt.Sprintf("missing condition in %s statement", keyword.String()))
 			cond = p.badExpr()
 		}
 		return
@@ -1906,9 +1922,13 @@ done:
 	// unpack condStmt
 	switch s := condStmt.(type) {
 	case nil:
-		if keyword == _If && semi.pos.IsKnown() {
+		if !semi.pos.IsKnown() {
+			break
+		}
+		switch keyword {
+		case _If, _Until:
 			if semi.lit != "semicolon" {
-				p.syntaxErrorAt(semi.pos, fmt.Sprintf("unexpected %s, expecting { after if clause", semi.lit))
+				p.syntaxErrorAt(semi.pos, fmt.Sprintf("unexpected %s, expecting { after %s clause", semi.lit, keyword.String()))
 			} else {
 				p.syntaxErrorAt(semi.pos, "missing condition in if statement")
 			}
@@ -2129,6 +2149,9 @@ func (p *parser) stmtOrNil() Stmt {
 
 	case _For:
 		return p.forStmt()
+
+	case _Until:
+		return p.untilStmt()
 
 	case _Switch:
 		return p.switchStmt()

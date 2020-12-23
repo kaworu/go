@@ -196,6 +196,8 @@ var stmts = []test{
 	{"IfStmt", `@if cond { f() } else { g(); h() }`},
 	{"ForStmt", `@for {}`},
 	{"ForStmt", `@for { f() }`},
+	{"UntilStmt", `@until cond { }`},
+	{"UntilStmt", `@until cond { f() }`},
 	{"SwitchStmt", `@switch {}`},
 	{"SwitchStmt", `@switch { default: }`},
 	{"SwitchStmt", `@switch { default: x++ }`},

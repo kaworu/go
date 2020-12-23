@@ -11,7 +11,7 @@ $ (cd src && ./make.bash) && ./bin/go version
 ### Testing
 
 ```console
-$ ./bin/go test -v ./src/cmd/compile/internal/syntax -run 'Smoke|Tokens|Scanner' -src $PWD/until.go
+$ ./bin/go test -v ./src/cmd/compile/internal/syntax -src $PWD/until.go
 ```
 
 # The Go Programming Language

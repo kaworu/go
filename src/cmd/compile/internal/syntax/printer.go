@@ -597,6 +597,13 @@ func (p *printer) printRawNode(n Node) {
 		}
 		p.print(n.Body)
 
+	case *UntilStmt:
+		p.print(_Until, blank)
+		if n.Init != nil {
+			p.print(n.Init, _Semi, blank)
+		}
+		p.print(n.Cond, blank, n.Body)
+
 	case *ImportDecl:
 		if n.Group == nil {
 			p.print(_Import, blank)
