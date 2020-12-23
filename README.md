@@ -13,6 +13,7 @@ $ (cd src && ./make.bash) && ./bin/go version
 ```console
 $ ./bin/go test -v ./src/cmd/compile/internal/syntax -src $PWD/until.go
 $ ./bin/go test -v ./src/cmd/compile/internal/gc
+$ ./bin/go run test/run.go -v -summary test/until.go test/syntax/until.go
 $ ./bin/go run ./until.go
 ```
 
