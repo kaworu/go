@@ -315,6 +315,7 @@ var sampleTokens = [...]struct {
 	{_Struct, "struct", 0, 0},
 	{_Switch, "switch", 0, 0},
 	{_Type, "type", 0, 0},
+	{_Until, "until", 0, 0},
 	{_Var, "var", 0, 0},
 }
 
