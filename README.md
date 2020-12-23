@@ -12,6 +12,7 @@ $ (cd src && ./make.bash) && ./bin/go version
 
 ```console
 $ ./bin/go test -v ./src/cmd/compile/internal/syntax -src $PWD/until.go
+$ ./bin/go test -v ./src/cmd/compile/internal/gc
 ```
 
 # The Go Programming Language

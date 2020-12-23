@@ -233,6 +233,8 @@ func TestBreakContinue(t *testing.T) {
 		{"breakLabeledInner_ssa", breakLabeledInner_ssa, 25},
 		{"breakLabeledOuter_ssa", breakLabeledOuter_ssa, 5},
 
+		// no until tests; they're identical to for
+
 		{"switchPlain_ssa", switchPlain_ssa, 1},
 		{"switchLabeled_ssa", switchLabeled_ssa, 1},
 		{"switchPlainInner_ssa", switchPlainInner_ssa, 2},

@@ -1073,6 +1073,8 @@ func (p *noder) stmtFall(stmt syntax.Stmt, fallOK bool) *Node {
 		return p.ifStmt(stmt)
 	case *syntax.ForStmt:
 		return p.forStmt(stmt)
+	case *syntax.UntilStmt:
+		return p.untilStmt(stmt)
 	case *syntax.SwitchStmt:
 		return p.switchStmt(stmt)
 	case *syntax.SelectStmt:
@@ -1193,6 +1195,21 @@ func (p *noder) forStmt(stmt *syntax.ForStmt) *Node {
 		if stmt.Post != nil {
 			n.Right = p.stmt(stmt.Post)
 		}
+	}
+	n.Nbody.Set(p.blockStmt(stmt.Body))
+	p.closeAnotherScope()
+	return n
+}
+
+func (p *noder) untilStmt(stmt *syntax.UntilStmt) *Node {
+	p.openScope(stmt.Pos())
+	var n *Node
+	n = p.nod(stmt, OUNTIL, nil, nil)
+	if stmt.Init != nil {
+		n.Ninit.Set1(p.stmt(stmt.Init))
+	}
+	if stmt.Cond != nil {
+		n.Left = p.expr(stmt.Cond)
 	}
 	n.Nbody.Set(p.blockStmt(stmt.Body))
 	p.closeAnotherScope()
